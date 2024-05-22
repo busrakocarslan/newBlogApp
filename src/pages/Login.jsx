@@ -1,18 +1,17 @@
 import React from "react";
 import { Formik, Form } from "formik";
+import LoginForm, {authSchema} from "../component/auth/LoginForm";
 import { object, string } from "yup";
+import useAuthApiRequest from "../services/authApiRequest";
+
 
 const Login = () => {
-  const authSchema = object({
-    email: string()
-      .email("Geçerli bir email giriniz")
-      .required("Email alanı zorunludur"),
-    password: string().required("Şifre alanı zorunludur"),
-  });
+  const {login}=useAuthApiRequest()
+  
 
   return (
     <div className="bg-login-bg min-w-[100%] min-h-[100vh] text-center bg-cover bg-center p-10 font-fontSedan">
-      <h1 className="text-2xl text-yellow-500 font-extrabold">LOGİN</h1>
+      <h1 className="text-2xl text-[#781762] font-extrabold">LOGİN</h1>
       <div className="my-[5%] ">
         <Formik
           initialValues={{ email: "", password: "" }}
@@ -20,53 +19,16 @@ const Login = () => {
           onSubmit={(values, actions) => {
             //TODO
             //POST
-            //toastify
-            //global state güncellemesi
+            //toastify=> authapirequestte 
+            //global state güncellemesi=>authrequestte
             //form resetleme
-            //navigate
+            //navigate=>authrequestte
+            login(values)            
             actions.resetForm();
+            actions.setSubmitting(false)
           }}
-        >
-          {(values, handleSubmit, handleChange, handleBlur, actions) => (
-            <Form>
-              <div>
-                <div>
-                  <div className="flex justify-center items-center mb-10 gap-1">
-                    <label
-                      for="email"
-                      class="block text-lg font-bold  text-orange-500"//leading-6
-                    >
-                      Email:
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autocomplete="email"
-                      class="block w-[450px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm    focus:outline-none sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                 
-                  <div className="flex justify-center items-center gap-1">
-                  <label
-                    for="email"
-                    class="block text-lg font-bold  text-orange-500"
-                  >
-                    Pass :
-                  </label>
-                    <input
-                      name="password"
-                      type="password"
-                      autocomplete="email"
-                      class="block w-[450px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm  focus:outline-none sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                  <button type="submit">Submit</button>
-                </div>
-              </div>
-            </Form>
-          )}
-        </Formik>
+          component={(props) => <LoginForm {...props} /> }
+        ></Formik>
       </div>
     </div>
   );

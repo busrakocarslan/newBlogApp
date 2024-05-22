@@ -9,7 +9,7 @@ module.exports = {
         fontSedan:["Sedan SC", "serif"]
       },
       backgroundImage: theme => ({
-        'login-bg': "url('./assets/key-5105878_1280.jpg')",
+        'login-bg': "url('./assets/write-3529980_1280.jpg')",
       }),backgroundSize: {
         'cover': 'cover',
       },

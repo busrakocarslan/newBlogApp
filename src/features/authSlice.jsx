@@ -21,6 +21,11 @@ const authSlice = createSlice({
             state.user = payload.user.username;
             state.token = payload.token;
         },
+        registerSuccess:(state, { payload }) => {
+            state.loading = false;
+            state.user = payload.data.username;
+            state.token = payload.token;
+        },
         logoutSuccess: (state) => {
             state.loading = false;
             state.user = "";
@@ -33,7 +38,7 @@ const authSlice = createSlice({
     },
 });
 
-export const { fetchStart, fetchFail, loginSuccess, logoutSuccess } = authSlice.actions;
+export const { fetchStart, fetchFail, loginSuccess, logoutSuccess,registerSuccess } = authSlice.actions;
 
 export default authSlice.reducer;// burayı store kısmına import etmelisin ve reducerde kullanmalısın
 
