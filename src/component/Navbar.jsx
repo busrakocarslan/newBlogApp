@@ -24,9 +24,9 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div>
+    <div >
       <nav
-        className={`bg-white pb-5 md:text-sm ${
+        className={`bg-pink-50 p-5 md:text-sm ${
           state
             ? "shadow-lg rounded-xl border mx-2 mt-2 md:shadow-none md:border-none md:mx-2 md:mt-0"
             : ""
@@ -36,9 +36,9 @@ const Navbar = () => {
           <div className="flex items-center justify-between py-5 md:block">
             <a href="javascript:void(0)">
               <img
-                src="https://www.floatui.com/logo.svg"
-                width={120}
-                height={50}
+                src="https://cdn.pixabay.com/photo/2017/09/07/08/06/bird-2724144_1280.png"
+                width={50}
+                height={10}
                 alt="Float UI logo"
               />
             </a>

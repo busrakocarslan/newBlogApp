@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <div className="mt-10 py-10 border-t items-center justify-between sm:flex">
+    <div className="bg-pink-50 p-10 max-h-[10vh] border-t items-center justify-around sm:flex">
     <p className="text-gray-600">© 2022 Float UI Inc. All rights reserved.</p>
     <div className="flex items-center gap-x-6 text-gray-400 mt-6">
         <Link to="/facebook">
