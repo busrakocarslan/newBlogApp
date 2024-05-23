@@ -3,7 +3,10 @@ import { RiHeartAdd2Line } from "react-icons/ri";
 import { LiaCommentsSolid } from "react-icons/lia";
 import { FiEye } from "react-icons/fi";
 
-const Card = ({ _id, image, title, content, createdAt }) => {
+const Card = ({ _id, image, title, content, createdAt,countOfVisitors,comments,likes }) => {
+    const date = new Date(createdAt);
+  const formattedDate = date.toLocaleString("tr-TR");
+   
   return (
     <section className="min-w-[300px] max-w-[300px] h-[500px]">
       <div>
@@ -13,6 +16,7 @@ const Card = ({ _id, image, title, content, createdAt }) => {
           alt={title}
           className="w-full h-48 rounded-t-md"
         />
+        <p>{formattedDate}</p>
 
         <div className="pt-3 ml-4 mr-2 mb-3">
           <h3 className="text-xl text-gray-900">{title}</h3>
@@ -20,9 +24,9 @@ const Card = ({ _id, image, title, content, createdAt }) => {
         </div>
         <div className="flex justify-between px-5 items-center">
           <div className="flex justify-between text-xl gap-3 items-center">
-          <button><RiHeartAdd2Line /></button> 
-          <button><LiaCommentsSolid /></button> 
-          <button><FiEye /></button> 
+          <button className="flex justify-center items-center gap-1"><RiHeartAdd2Line />{likes.length}</button> 
+          <button className="flex justify-center gap-1 items-center"><LiaCommentsSolid />{comments.length}</button> 
+          <button className="flex justify-center items-center gap-1"><FiEye />{countOfVisitors}</button> 
           </div>
           <button className="buttonbg hoverEffect">Devamı</button>
         </div>
