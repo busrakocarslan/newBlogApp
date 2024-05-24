@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useBlogRequest from "../services/useBlogRequest";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RiHeartAdd2Line } from "react-icons/ri";
 import { LiaCommentsSolid } from "react-icons/lia";
 import { FiEye } from "react-icons/fi";
@@ -10,6 +10,7 @@ const Detail = () => {
   const { id } = useParams();
   const { detailBlog, getUsers } = useBlogRequest();
   const { blogDetail,users } = useSelector((state) => state.blogs);
+  const dispatch=useDispatch()
  
   const handleComment=()=>{}
 
@@ -25,7 +26,7 @@ const Detail = () => {
 
   return (
     <section className="min-w-[500px] max-w-[500px]  m-auto mt-5 p-5">
-      <div>
+      <div className="mb-5">
         <img
           src={blogDetail?.image}
           loading="lazy"
@@ -57,6 +58,7 @@ const Detail = () => {
           </div>
         </div>
       </div>
+      <Link to="/" className="buttonbg hoverEffect">Geri</Link>
       <Outlet/>
     </section>
   );

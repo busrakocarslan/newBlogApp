@@ -3,26 +3,32 @@ import CommentForm from "./CommentForm";
 import DeleteModal from "./DeleteModal";
 import UpdateModal from "./UpdateModal";
 import useBlogRequest from "../../services/useBlogRequest";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const CommentCard = () => {
   const [comment, setcomment] = useState();
   const { blogDetail } = useSelector((state) => state.blogs);
+  const { detailBlog } = useBlogRequest();
   const { createComments } = useBlogRequest();
   const navigate = useNavigate();
+ 
 
   const handleSubmit = () => {
+   
     const newComment = {
       blogId: blogDetail._id,
       comment: comment,
     };
     createComments(newComment);
+    
 
     setcomment("");
   };
   return (
-    <div>
+    <div className="mt-5">
+      
       <form className="py-3" onSubmit={handleSubmit}>
         <textarea
           type="text"
@@ -36,6 +42,7 @@ const CommentCard = () => {
 
         <button className="w-full buttonbg hoverEffect">Gönder</button>
       </form>
+      
 
       <CommentForm />
       <DeleteModal />

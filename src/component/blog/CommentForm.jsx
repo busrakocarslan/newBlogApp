@@ -6,7 +6,7 @@ const CommentForm = () => {
   const { blogDetail } = useSelector((state) => state.blogs);
   // console.log(blogDetail);
   console.log(blogDetail);
-  const yorumlar= blogDetail.comments
+  const yorumlar= blogDetail?.comments
   console.log(yorumlar);
   
 
@@ -19,6 +19,7 @@ const CommentForm = () => {
         {/* You can render other details of the comment here */}
       </div>
     ))}
+    
   </div>
    
     
