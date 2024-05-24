@@ -12,6 +12,10 @@ import Dasboard from "../pages/Dasboard";
 import NewBlog from "../pages/NewBlog";
 import Detail from "../pages/Detail";
 import About from "../pages/About";
+import CommentCard from "../component/blog/CommentCard";
+import CommentForm from "../component/blog/CommentForm";
+import DeleteModal from "../component/blog/DeleteModal";
+import UpdateModal from "../component/blog/UpdateModal";
 
 const AppRouter = () => {
   return (
@@ -22,9 +26,11 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/newblog" element={<PrivateRouter />}>
-          <Route path="" element={<NewBlog />} />
-          <Route path="blogdetails" element={<Detail />} />
+        <Route path="/" element={<PrivateRouter />}>
+          <Route path="/newblog" element={<NewBlog />} />
+          <Route path="/blogdetails/:id" element={<Detail />} >
+            <Route path="comments" element={<CommentCard/>}/>           
+          </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
         <Route path="twitter" element={<ComingSoon/>}/>

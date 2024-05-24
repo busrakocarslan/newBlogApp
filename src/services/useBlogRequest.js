@@ -5,6 +5,8 @@ import {
   blogPending,
   blogRegister,
   getBlogSuccess,
+  blogDetailSuccess,
+  getUserSuccess
 } from "../features/blogSlice";
 import { toastErrorNotify } from "../helper/ToastNotify";
 
@@ -13,7 +15,7 @@ const useBlogRequest = () => {
   const { axiosPublic, axiosToken } = useAxios();
 
   //!-----------Blogların çağırılması işlemi-----
-  const getBlogs = async (page,limit) => {
+  const getBlogs = async (page, limit) => {
     dispatch(blogPending());
     try {
       const { data } = await axiosPublic(`blogs/?page=${page}&limit=${limit}`);
@@ -25,8 +27,45 @@ const useBlogRequest = () => {
       console.log(error);
     }
   };
+  //!-----------Blog ayrıntısının çağırılması işlemi-----
+  const detailBlog = async (id) => {
+    dispatch(blogPending());
 
-  return {getBlogs};
+    try {
+      const { data } = await axiosToken(`/blogs/${id}`);
+      dispatch(blogDetailSuccess(data))
+      console.log(data);
+    } catch (error) {
+      dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+  const createComments = async (commentData) => {
+    dispatch(blogPending());
+
+    try {
+      const { data } = await axiosToken.post(`/comments/`,commentData);
+      dispatch(blogDetailSuccess(data))
+      console.log(data);
+    } catch (error) {
+      dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+
+  
+  const getUsers = async () => {
+    dispatch(blogPending());
+    try {
+      const { data } = await axiosToken(`/users`);
+      dispatch(getUserSuccess( data ));
+    } catch (error) {
+      dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+
+  return { getBlogs,detailBlog,getUsers,createComments };
 };
 
 export default useBlogRequest;
