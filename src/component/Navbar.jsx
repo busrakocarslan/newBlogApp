@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import useAuthApiRequest from "../services/authApiRequest";
+import { FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
   const [state, setState] = useState(false);
@@ -11,7 +12,7 @@ const Navbar = () => {
 
   // Replace javascript:void(0) paths with your paths
   const navigation = [
-    { title: "Dashboard", path: "/" },
+    { title: "Home", path: "/" },
     { title: "NewBlog", path: "/newblog" },
     { title: "About", path: "/about" },
   ];
@@ -32,7 +33,7 @@ const Navbar = () => {
             : ""
         }`}
       >
-        <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8">
+        <div className="gap-x-14 items-center max-w-screen-xl font-fontSedan text-lg mx-auto px-4 md:flex md:px-8">
           <div className="flex items-center justify-between py-5 md:block">
             <a href="javascript:void(0)">
               <img
@@ -99,7 +100,7 @@ const Navbar = () => {
             <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
               <Link
                 to="/login"
-                className="block text-gray-700 hover:text-gray-900"
+                className="block text-red-900 hover:text-gray-900"
               >
                 {!user ? (
                   <Link
@@ -110,7 +111,7 @@ const Navbar = () => {
                   </Link>
                 ) : (
                   <button color="inherit" onClick={logout}>
-                    Logout
+                    Logout<FiLogOut className="inline ml-1" />
                   </button>
                 )}
               </Link>

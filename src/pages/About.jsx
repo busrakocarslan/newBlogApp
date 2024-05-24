@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <section className="py-14">
+    <section className="py-14 mt-5 font-fontSedan">
       <div className="max-w-[500px] h-[80vh] mx-auto px-4 md:px-8">
-        <div className="max-w-xl border- border-2 border-red-50 mx-auto p-5">
+        <div className="max-w-lg  border-2 rounded-xl border-orange-200 mx-auto p-5 shadow-xl ">
           <figure>
             <div className="flex justify-center items-center gap-x-4 mt-6">
               <img
@@ -32,6 +32,8 @@ const About = () => {
               </Link>
             </blockquote>
           </figure>
+        </div>
+        <div className="bg-form-bg bg-cover w-[250px] h-[250px] m-auto mt-5">
         </div>
       </div>
     </section>

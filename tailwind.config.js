@@ -10,7 +10,7 @@ module.exports = {
       },
       backgroundImage: theme => ({        
         'login-bg': "url('./assets/write-3529980_1280.jpg')",
-        'form-bg':"url('./assets/sms-mail-2784920_1280.png')"
+        'form-bg':"url('./assets/girl-6028307_1280.png')"
       }),backgroundSize: {
         'cover': 'cover',
       },
