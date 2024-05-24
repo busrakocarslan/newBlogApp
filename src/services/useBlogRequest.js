@@ -13,10 +13,10 @@ const useBlogRequest = () => {
   const { axiosPublic, axiosToken } = useAxios();
 
   //!-----------Blogların çağırılması işlemi-----
-  const getBlogs = async () => {
+  const getBlogs = async (page,limit) => {
     dispatch(blogPending());
     try {
-      const { data } = await axiosPublic("blogs/?page=1&limit=10");
+      const { data } = await axiosPublic(`blogs/?page=${page}&limit=${limit}`);
       dispatch(getBlogSuccess(data));
       console.log(data);
     } catch (error) {
