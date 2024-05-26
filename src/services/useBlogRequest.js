@@ -6,7 +6,8 @@ import {
   blogRegister,
   getBlogSuccess,
   blogDetailSuccess,
-  getUserSuccess
+  getUserSuccess,
+  getCategoriesSuccess
 } from "../features/blogSlice";
 import { toastErrorNotify } from "../helper/ToastNotify";
 
@@ -20,6 +21,18 @@ const useBlogRequest = () => {
     try {
       const { data } = await axiosPublic(`blogs/?page=${page}&limit=${limit}`);
       dispatch(getBlogSuccess(data));
+      console.log(data);
+    } catch (error) {
+      toastErrorNotify("Oops! there is something wrong for adding");
+      dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+  const getCategories = async () => {
+    dispatch(blogPending());
+    try {
+      const { data } = await axiosPublic(`categories`);
+      dispatch(getCategoriesSuccess(data));
       console.log(data);
     } catch (error) {
       toastErrorNotify("Oops! there is something wrong for adding");
@@ -76,7 +89,7 @@ const useBlogRequest = () => {
     }
   };
 
-  return { getBlogs,detailBlog,getUsers,createComments,getBlogUser };
+  return { getBlogs,detailBlog,getUsers,createComments,getBlogUser,getCategories };
 };
 
 export default useBlogRequest;

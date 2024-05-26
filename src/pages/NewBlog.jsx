@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string,ref } from "yup";
 import * as yup from "yup";
-const categories = [
-  { id: 1, value: 'technology', label: 'Technology' },
-  { id: 2, value: 'lifestyle', label: 'Lifestyle' },
-];
+import { useSelector } from "react-redux";
+import useBlogRequest from "../services/useBlogRequest";
+
 
 const statuses = [
   { id: 1, value: 'draft', label: 'Draft' },
@@ -20,6 +19,14 @@ const validationSchema = yup.object({
 });
 
 const NewBlog = ({ values, handleChange, handleBlur, touched, errors }) => {
+  const { getCategories }=useBlogRequest()
+  const { categories }=useSelector(state=>state.blogs)
+
+  useEffect(() => {
+    getCategories()
+    
+  }, [])
+  
   return (
     <Formik
       initialValues={{
@@ -71,8 +78,8 @@ const NewBlog = ({ values, handleChange, handleBlur, touched, errors }) => {
             >
               <option value="">Select a category</option>
               {categories.map((category) => (
-                <option key={category.id} value={category.value}>
-                  {category.label}
+                <option key={category._id} value={category.name}>
+                  {category.name}
                 </option>
               ))}
             </Field>
