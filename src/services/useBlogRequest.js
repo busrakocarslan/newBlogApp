@@ -7,7 +7,8 @@ import {
   getBlogSuccess,
   blogDetailSuccess,
   getUserSuccess,
-  getCategoriesSuccess
+  getCategoriesSuccess,
+  postBlogSuccess,
 } from "../features/blogSlice";
 import { toastErrorNotify } from "../helper/ToastNotify";
 
@@ -46,7 +47,7 @@ const useBlogRequest = () => {
 
     try {
       const { data } = await axiosToken(`/blogs/${id}`);
-      dispatch(blogDetailSuccess(data))
+      dispatch(blogDetailSuccess(data));
       console.log(data);
     } catch (error) {
       dispatch(blogRegister());
@@ -57,8 +58,21 @@ const useBlogRequest = () => {
     dispatch(blogPending());
 
     try {
-      const { data } = await axiosToken.post(`/comments/`,commentData);
-      dispatch(blogDetailSuccess(data))
+      const { data } = await axiosToken.post(`/comments/`, commentData);
+      dispatch(blogDetailSuccess(data));
+      console.log(data);
+    } catch (error) {
+      dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+  //!-----------Blog gönderilmesi işlemi-----
+  const createBlogs = async (commentData) => {
+    dispatch(blogPending());
+    try {
+      const { data } = await axiosToken.post(`/blogs/`, commentData);
+      dispatch(postBlogSuccess(data));
+      getBlogs()
       console.log(data);
     } catch (error) {
       dispatch(blogRegister());
@@ -66,12 +80,11 @@ const useBlogRequest = () => {
     }
   };
 
-  
   const getUsers = async () => {
     dispatch(blogPending());
     try {
       const { data } = await axiosToken(`/users`);
-      dispatch(getUserSuccess( data ));
+      dispatch(getUserSuccess(data));
       console.log(data);
     } catch (error) {
       dispatch(blogRegister());
@@ -82,14 +95,22 @@ const useBlogRequest = () => {
     dispatch(blogPending());
     try {
       const { data } = await axiosToken(`/blogs?author=${id}`);
-      dispatch(getUserSuccess( data ));
+      dispatch(getUserSuccess(data));
     } catch (error) {
       dispatch(blogRegister());
       console.log(error);
     }
   };
 
-  return { getBlogs,detailBlog,getUsers,createComments,getBlogUser,getCategories };
+  return {
+    getBlogs,
+    detailBlog,
+    getUsers,
+    createComments,
+    getBlogUser,
+    getCategories,
+    createBlogs
+  };
 };
 
 export default useBlogRequest;

@@ -43,12 +43,16 @@ const blogSlice = createSlice({
         state.loading = false;
         state.categories = payload.data;
       },
+    postBlogSuccess: (state, { payload }) => {
+        state.loading = false;
+        state.blog = payload.data;
+      },
     setPage: (state, { payload }) => {// pagination için oluşan  reducer
       state.currentPage = payload;
     },
   },
 });
 
-export const { blogPending, getBlogSuccess, blogRegister,setPage,blogDetailSuccess,getUserSuccess,getCategoriesSuccess } = blogSlice.actions;
+export const { blogPending, getBlogSuccess, blogRegister,setPage,blogDetailSuccess,getUserSuccess,getCategoriesSuccess,postBlogSuccess } = blogSlice.actions;
 
 export default blogSlice.reducer;
