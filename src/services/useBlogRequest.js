@@ -59,13 +59,24 @@ const useBlogRequest = () => {
     try {
       const { data } = await axiosToken(`/users`);
       dispatch(getUserSuccess( data ));
+      console.log(data);
+    } catch (error) {
+      dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+  const getBlogUser = async (id) => {
+    dispatch(blogPending());
+    try {
+      const { data } = await axiosToken(`/blogs?author=${id}`);
+      dispatch(getUserSuccess( data ));
     } catch (error) {
       dispatch(blogRegister());
       console.log(error);
     }
   };
 
-  return { getBlogs,detailBlog,getUsers,createComments };
+  return { getBlogs,detailBlog,getUsers,createComments,getBlogUser };
 };
 
 export default useBlogRequest;

@@ -8,7 +8,7 @@ import { FiLogOut } from "react-icons/fi";
 const Navbar = () => {
   const [state, setState] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  const { logout } = useAuthApiRequest()
+  const { logout } = useAuthApiRequest();
 
   // Replace javascript:void(0) paths with your paths
   const navigation = [
@@ -25,7 +25,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div >
+    <div>
       <nav
         className={`bg-pink-50 p-5 md:text-sm ${
           state
@@ -100,7 +100,7 @@ const Navbar = () => {
             <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
               <Link
                 to="/login"
-                className="block text-red-900 hover:text-gray-900"
+                className="block"
               >
                 {!user ? (
                   <Link
@@ -110,9 +110,14 @@ const Navbar = () => {
                     Log in
                   </Link>
                 ) : (
-                  <button color="inherit" onClick={logout}>
-                    Logout<FiLogOut className="inline ml-1" />
-                  </button>
+                  <div className=" flex max-md:flex-col max-md:justify-center max-md:items-end gap-3">
+                    <Link to="/profile">Profile</Link>
+                    <Link to="/myblog">MyBlogs</Link>
+                    <button className=" text-red-900 hover:text-gray-900" color="inherit" onClick={logout}>
+                      Logout
+                      <FiLogOut className="inline ml-1" />
+                    </button>
+                  </div>
                 )}
               </Link>
               {!user && (

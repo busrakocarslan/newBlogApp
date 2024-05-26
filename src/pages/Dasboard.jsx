@@ -5,7 +5,7 @@ import Card from "../component/blog/Card";
 import { setPage } from "../features/blogSlice";
 
 const Dasboard = () => {
-  const { getBlogs } = useBlogRequest();
+  const { getBlogs,getUsers } = useBlogRequest();
   const dispatch = useDispatch();
   const { blog, error, loading, currentPage, totalPage } = useSelector(
     (state) => state.blogs
@@ -13,6 +13,7 @@ const Dasboard = () => {
 
   useEffect(() => {
     getBlogs(currentPage,3);
+    getUsers()
   }, [currentPage]);
   const handleNextPage = () => {
     if (currentPage < totalPage) {
