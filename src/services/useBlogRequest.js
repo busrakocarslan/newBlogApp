@@ -81,15 +81,28 @@ const useBlogRequest = () => {
     }
   };
   //!-----------Blog bilgilerinin güncellenmesi işlemi-----
-  const putBlog = async (id) => {
+  const putBlog = async (id,blogInfo) => {
     dispatch(blogPending());
     try {
-      await axiosToken.put(`/blogs/${id}`);
-      // dispatch(postBlogSuccess(data));
-      getBlogs();
+    const {data}=  await axiosToken.put(`/blogs/${id}`,blogInfo);
+      dispatch(postBlogSuccess(data));
+      // getBlogs()
+     detailBlog(id)
       // console.log(data);
     } catch (error) {
       dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+//!-----------Blog bilgilerinin silinmesi işlemi-----
+  const delBlogs = async (endpoint, id) => {
+    dispatch(blogPending());
+    try {
+      await axiosToken.delete(`/${endpoint}/${id}`);
+      // toastSuccessNotify("Silme işlemi başarılı");
+    } catch (error) {
+      dispatch(blogRegister());
+      // toastErrorNotify("Silme işlemi başarısız oldu");
       console.log(error);
     }
   };

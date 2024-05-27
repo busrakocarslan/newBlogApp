@@ -11,9 +11,9 @@ import UpdateModal from "../component/blog/UpdateModal";
 const Detail = () => {
   const [updateOpen, setUpdateOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [selectedBlog, setSelectedBlog] = useState(null);
+  
   const { id } = useParams();
-  const { detailBlog, getUsers,getCategories } = useBlogRequest();
+  const { detailBlog, getUsers,getCategories,putBlog } = useBlogRequest();
   const { blogDetail, users, blog } = useSelector((state) => state.blogs);
   const { categories } = useSelector((state) => state.blogs);
   // const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const Detail = () => {
     detailBlog(id);
     getUsers();
     getCategories();
+ 
   }, []);
 
   const date = new Date(blogDetail?.createdAt);
