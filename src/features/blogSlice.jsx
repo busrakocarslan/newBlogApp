@@ -27,6 +27,10 @@ const blogSlice = createSlice({
       state.totalPage = payload.details.pages.total; // APİ dan gelen veriler bunlar
     state.currentPage=  payload.details.page+1// api den gelen page 0 indexli olduğundan bu kod yazıldı
     },
+    getMyBlogSuccess: (state,{payload}) => {
+      state.loading = false;
+      state.blog = payload.data;
+    },
     blogRegister: (state) => {
       state.loading = false;
       state.error = true;
@@ -53,6 +57,6 @@ const blogSlice = createSlice({
   },
 });
 
-export const { blogPending, getBlogSuccess, blogRegister,setPage,blogDetailSuccess,getUserSuccess,getCategoriesSuccess,postBlogSuccess } = blogSlice.actions;
+export const { blogPending, getBlogSuccess, blogRegister,setPage,blogDetailSuccess,getUserSuccess,getCategoriesSuccess,postBlogSuccess,getMyBlogSuccess } = blogSlice.actions;
 
 export default blogSlice.reducer;

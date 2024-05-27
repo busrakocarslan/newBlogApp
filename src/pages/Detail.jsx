@@ -5,21 +5,25 @@ import { RiHeartAdd2Line } from "react-icons/ri";
 import { LiaCommentsSolid } from "react-icons/lia";
 import { FiEye } from "react-icons/fi";
 import { Link, Outlet, useParams } from "react-router-dom";
+import DeleteModal from "../component/blog/DeleteModal";
+import UpdateModal from "../component/blog/UpdateModal";
 
 const Detail = () => {
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [selectedBlog, setSelectedBlog] = useState(null);
   const { id } = useParams();
-  const { detailBlog, getUsers } = useBlogRequest();
-  const { blogDetail,users } = useSelector((state) => state.blogs);
-  const dispatch=useDispatch()
- 
-  const handleComment=()=>{}
+  const { detailBlog, getUsers,getCategories } = useBlogRequest();
+  const { blogDetail, users, blog } = useSelector((state) => state.blogs);
+  const { categories } = useSelector((state) => state.blogs);
+  // const dispatch = useDispatch();
+  // const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     detailBlog(id);
     getUsers();
+    getCategories();
   }, []);
-
-
 
   const date = new Date(blogDetail?.createdAt);
   const formattedDate = date.toLocaleString("tr-TR");
@@ -47,7 +51,10 @@ const Detail = () => {
               <RiHeartAdd2Line />
               {blogDetail?.likes?.length}
             </button>
-            <Link to="comments" className="flex justify-center gap-1 items-center">
+            <Link
+              to="comments"
+              className="flex justify-center gap-1 items-center"
+            >
               <LiaCommentsSolid />
               {blogDetail?.comments?.length}
             </Link>
@@ -58,8 +65,42 @@ const Detail = () => {
           </div>
         </div>
       </div>
-      <Link to="/" className="buttonbg hoverEffect">Geri</Link>
-      <Outlet/>
+      <Link to="/" className="buttonbg hoverEffect">
+        Geri
+      </Link>
+      {users[0]?._id === blogDetail?.userId?._id && (
+        <>
+          <div className="flex justify-end mt-2 flex-col-1 gap-2">
+            <button className="buttonbg hoverEffect w-[50px]" onClick={() => setDeleteOpen(true)}>
+              Sil
+            </button>
+            <button
+              className="buttonbg hoverEffect"
+              onClick={() => setUpdateOpen(true)}
+            >
+              Güncelle
+            </button>
+          </div>
+          <UpdateModal
+           open={updateOpen}
+           setOpen={setUpdateOpen}
+           blogDetail={blogDetail}
+           categories={categories}
+           users={users}
+           
+          />
+        <DeleteModal 
+            open={deleteOpen}
+            setOpen={setDeleteOpen}
+            users={users}
+            onDelete={() => {
+              // Silme işlemi
+              setDeleteOpen(false);
+            }}
+          />
+        </>
+      )}
+      <Outlet />
     </section>
   );
 };

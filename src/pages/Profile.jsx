@@ -7,7 +7,7 @@ import userAvatar from "../assets/avatars-2858669_1280.png"
 const Profile = () => {
   const { users } = useSelector((state) => state.blogs);
   const { getUsers } = useBlogRequest();
-  const { id } = useParams();
+  // const { id } = useParams();
 
   useEffect(() => {
     getUsers();
@@ -16,7 +16,7 @@ const Profile = () => {
    const user = users[0]; // İlk kullanıcıyı alıyoruz
 
    return (
-     <div className=" text-center w-[50%] m-auto p-1 h-[80vh] uppercase font-fontSedan">
+     <div className=" text-center w-[50%] m-auto p-1 min-h-[80vh] uppercase font-fontSedan">
        <div>
          <img
            src={user.image}

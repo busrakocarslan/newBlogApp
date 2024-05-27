@@ -3,12 +3,10 @@ import { RiHeartAdd2Line } from "react-icons/ri";
 import { LiaCommentsSolid } from "react-icons/lia";
 import { FiEye } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
-import useBlogRequest from "../../services/useBlogRequest";
 
 const Card = ({ _id, image, title, content, createdAt,countOfVisitors,comments,likes }) => {
   const navigate=useNavigate()
   
-  const { detailBlog } = useBlogRequest();
     const date = new Date(createdAt);
   const formattedDate = date.toLocaleString("tr-TR");
 

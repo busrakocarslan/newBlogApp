@@ -9,6 +9,7 @@ import {
   getUserSuccess,
   getCategoriesSuccess,
   postBlogSuccess,
+  getMyBlogSuccess
 } from "../features/blogSlice";
 import { toastErrorNotify } from "../helper/ToastNotify";
 
@@ -72,8 +73,21 @@ const useBlogRequest = () => {
     try {
       const { data } = await axiosToken.post(`/blogs/`, commentData);
       dispatch(postBlogSuccess(data));
-      getBlogs()
+      detailBlog();
       console.log(data);
+    } catch (error) {
+      dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+  //!-----------Blog bilgilerinin güncellenmesi işlemi-----
+  const putBlog = async (id) => {
+    dispatch(blogPending());
+    try {
+      await axiosToken.put(`/blogs/${id}`);
+      // dispatch(postBlogSuccess(data));
+      getBlogs();
+      // console.log(data);
     } catch (error) {
       dispatch(blogRegister());
       console.log(error);
@@ -95,7 +109,8 @@ const useBlogRequest = () => {
     dispatch(blogPending());
     try {
       const { data } = await axiosToken(`/blogs?author=${id}`);
-      dispatch(getUserSuccess(data));
+      dispatch(getMyBlogSuccess(data));
+      console.log(data);
     } catch (error) {
       dispatch(blogRegister());
       console.log(error);
@@ -109,7 +124,8 @@ const useBlogRequest = () => {
     createComments,
     getBlogUser,
     getCategories,
-    createBlogs
+    createBlogs,
+    putBlog
   };
 };
 

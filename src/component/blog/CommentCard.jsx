@@ -16,7 +16,7 @@ const CommentCard = () => {
  
 
   const handleSubmit = () => {
-   
+    // e.preventDefault()   
     const newComment = {
       blogId: blogDetail._id,
       comment: comment,
@@ -44,9 +44,9 @@ const CommentCard = () => {
       </form>
       
 
+      {/* <DeleteModal />
+      <UpdateModal /> */}
       <CommentForm />
-      <DeleteModal />
-      <UpdateModal />
     </div>
   );
 };

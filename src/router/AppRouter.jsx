@@ -17,6 +17,7 @@ import CommentForm from "../component/blog/CommentForm";
 import DeleteModal from "../component/blog/DeleteModal";
 import UpdateModal from "../component/blog/UpdateModal";
 import Profile from "../pages/Profile";
+import MyBlogs from "../pages/MyBlogs";
 
 const AppRouter = () => {
   return (
@@ -28,6 +29,7 @@ const AppRouter = () => {
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/myblogs" element={<MyBlogs />} />
         <Route path="/" element={<PrivateRouter />}>
           <Route path="/newblog" element={<NewBlog />} />
           <Route path="/blogdetails/:id" element={<Detail />} >

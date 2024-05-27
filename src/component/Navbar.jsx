@@ -112,7 +112,7 @@ const Navbar = () => {
                 ) : (
                   <div className=" flex max-md:flex-col max-md:justify-center max-md:items-end gap-3">
                     <Link to="/profile">Profile</Link>
-                    <Link to="/myblog">MyBlogs</Link>
+                    <Link to="/myblogs">MyBlogs</Link>
                     <button className=" text-red-900 hover:text-gray-900" color="inherit" onClick={logout}>
                       Logout
                       <FiLogOut className="inline ml-1" />
