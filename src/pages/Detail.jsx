@@ -13,7 +13,7 @@ const Detail = () => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   
   const { id } = useParams();
-  const { detailBlog, getUsers,getCategories,putBlog } = useBlogRequest();
+  const { detailBlog, getUsers,getCategories,delBlogs } = useBlogRequest();
   const { blogDetail, users, blog } = useSelector((state) => state.blogs);
   const { categories } = useSelector((state) => state.blogs);
   // const dispatch = useDispatch();
@@ -94,10 +94,12 @@ const Detail = () => {
             open={deleteOpen}
             setOpen={setDeleteOpen}
             users={users}
-            onDelete={() => {
-              // Silme işlemi
-              setDeleteOpen(false);
-            }}
+            blogDetail={blogDetail}
+
+            // onDelete={() => {
+            //  delBlogs(blogDetail?._id)
+            //   setDeleteOpen(false);
+            // }}
           />
         </>
       )}

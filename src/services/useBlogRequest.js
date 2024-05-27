@@ -95,10 +95,10 @@ const useBlogRequest = () => {
     }
   };
 //!-----------Blog bilgilerinin silinmesi işlemi-----
-  const delBlogs = async (endpoint, id) => {
+  const delBlogs = async (id) => {
     dispatch(blogPending());
     try {
-      await axiosToken.delete(`/${endpoint}/${id}`);
+      await axiosToken.delete(`/blogs/${id}`);
       // toastSuccessNotify("Silme işlemi başarılı");
     } catch (error) {
       dispatch(blogRegister());
@@ -138,7 +138,8 @@ const useBlogRequest = () => {
     getBlogUser,
     getCategories,
     createBlogs,
-    putBlog
+    putBlog,
+    delBlogs
   };
 };
 

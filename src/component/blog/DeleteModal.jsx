@@ -1,8 +1,18 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import useBlogRequest from "../../services/useBlogRequest";
+import { blogDetailSuccess } from "../../features/blogSlice";
+import { useNavigate } from "react-router-dom";
 
-const DeleteModal = ({ open, setOpen, onDelete,users }) => {
-  
+const DeleteModal = ({ open, setOpen, blogDetail, users }) => {
+  const navigate = useNavigate();
+  const { delBlogs } = useBlogRequest();
+  const onDelete = () => {
+    delBlogs(blogDetail._id);
+    navigate("/myblogs");
+    setOpen(false);
+  };
+
   return (
     <Transition show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
@@ -36,12 +46,16 @@ const DeleteModal = ({ open, setOpen, onDelete,users }) => {
                       {users[0]?.username}
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-base font-semibold leading-6 text-gray-900"
+                      >
                         Blogu Sil
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Bu blogu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
+                          Bu blogu silmek istediğinizden emin misiniz? Bu işlem
+                          geri alınamaz.
                         </p>
                       </div>
                     </div>

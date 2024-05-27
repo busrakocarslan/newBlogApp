@@ -5,7 +5,7 @@ import useBlogRequest from "../../services/useBlogRequest";
 import { useNavigate } from "react-router-dom";
 
 const UpdateModal = ({ open, setOpen, blogDetail, categories, users }) => {
-  const navigate = useNavigate();
+ 
   const { _id } = blogDetail;
   const [blogInfo, setBlogInfo] = useState({
     title: blogDetail?.title || "",
