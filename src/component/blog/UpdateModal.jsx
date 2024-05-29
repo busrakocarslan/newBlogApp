@@ -71,7 +71,7 @@ const UpdateModal = ({ open, setOpen, blogDetail, categories, users }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <Dialog.Panel className="relative transform border-4 overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-pink-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -79,7 +79,7 @@ const UpdateModal = ({ open, setOpen, blogDetail, categories, users }) => {
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <div className="mt-2">
-                        <form onSubmit={handleUpdate}>
+                        <form onSubmit={handleUpdate} className="min-w-[350px]">
                           <div className="mb-4">
                             <label
                               className="block text-gray-700 text-sm font-bold mb-2"
@@ -175,7 +175,7 @@ const UpdateModal = ({ open, setOpen, blogDetail, categories, users }) => {
                               required
                             />
                           </div>
-                          <div className="bg-gray-50 px-4 py-3 gap-2 sm:flex sm:flex-row-reverse sm:px-6">
+                          <div className="bg-gray-50 px-4 py-3 gap-2 sm:flex sm:flex-row-reverse justify-center sm:px-6">
                             <button
                               type="submit"
                               className="buttonbg hoverEffect"

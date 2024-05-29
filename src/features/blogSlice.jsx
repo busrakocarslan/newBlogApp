@@ -24,8 +24,8 @@ const blogSlice = createSlice({
     getBlogSuccess: (state, { payload }) => {
       state.loading = false;
       state.blog =payload.data;
+      state.currentPage=  payload.details.pages.current
       state.totalPage = payload.details.pages.total; // APİ dan gelen veriler bunlar
-    state.currentPage=  payload.details.pages.current
     },
     getMyBlogSuccess: (state,{payload}) => {
       state.loading = false;

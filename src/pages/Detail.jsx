@@ -67,10 +67,10 @@ const Detail = () => {
           </div>
         </div>
       </div>
-      <button onClick={()=>navigate(-1)}  className="buttonbg hoverEffect">
+      <button onClick={()=>navigate(-1)}  className="buttonNewbg hoverEffect mr-3">
         Geri
       </button>
-      <button onClick={()=>navigate("/")}  className="buttonbg hoverEffect">
+      <button onClick={()=>navigate("/")}  className="buttonNewbg  hoverEffect">
         Anasayfa
       </button>
       {users[0]?._id === blogDetail?.userId?._id && (

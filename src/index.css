@@ -56,3 +56,10 @@
   padding: 5px;
   border-radius: 10px;
 }
+.buttonNewbg {
+  background-color: rgb(232, 94, 44);
+  transition: all 0.3s ease-in;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+}
