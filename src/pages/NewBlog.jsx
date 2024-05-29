@@ -39,8 +39,7 @@ const NewBlog = () => {
       onSubmit={(values, actions) => {
 
         // Form submit işlemi
-        createBlogs(values)
-       
+        createBlogs(values)       
         actions.resetForm();
         actions.setSubmitting(false);
       }}
@@ -49,7 +48,7 @@ const NewBlog = () => {
         <Form className="bg-pink-50 bg-cover my-5 w-[40%] m-auto p-3">
           <div className="formContainer">
             <label htmlFor="title" className="label">
-              New Blog Title
+              Yeni Blog Başlık
             </label>
             <Field
               id="title"
@@ -67,7 +66,7 @@ const NewBlog = () => {
 
           <div className="formContainer">
             <label htmlFor="image" className="label">
-              Image URL
+              Resim URL
             </label>
             <Field
               id="image"
@@ -84,7 +83,7 @@ const NewBlog = () => {
 
           <div className="formContainer">
             <label htmlFor="categoryId" className="label">
-              Category
+              Kategori
             </label>
             <Field
               as="select"
@@ -92,7 +91,7 @@ const NewBlog = () => {
               name="categoryId"
               className="input block w-[450px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm focus:outline-none sm:text-sm sm:leading-6"
             >
-              <option value="">Select a category</option>
+              <option value="">Kategori seçin</option>
               {categories.map((category) => (
                 <option key={category._id} value={category._id}>
                   {category.name}
@@ -108,7 +107,7 @@ const NewBlog = () => {
 
           <div className="formContainer">
             <label htmlFor="isPublished" className="label">
-              Status
+              Durum
             </label>
             <Field
               as="select"
@@ -116,7 +115,7 @@ const NewBlog = () => {
               name="isPublished"
               className="input block w-[450px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm focus:outline-none sm:text-sm sm:leading-6"
             >
-              <option value="">Select a status</option>
+              <option value="">Bir Durum Seçin</option>
               {statuses.map((status,index) => (
                 <option key={index} value={status.states}>
                   {status.name}
@@ -132,7 +131,7 @@ const NewBlog = () => {
 
           <div className="formContainer">
             <label htmlFor="content" className="label">
-              Content
+              İçerik
             </label>
             <Field
               as="textarea"

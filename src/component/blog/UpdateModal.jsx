@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import useBlogRequest from "../../services/useBlogRequest";
@@ -15,32 +15,39 @@ const UpdateModal = ({ open, setOpen, blogDetail, categories, users }) => {
     content: blogDetail?.content || "",
   });
   const { putBlog, detailBlog } = useBlogRequest();
+  useEffect(() => {
+    if (blogDetail) {
+      setBlogInfo({
+        title: blogDetail?.title || "",
+        image: blogDetail?.image || "",
+        categoryId: blogDetail?.categoryId?._id || "",
+        isPublished: blogDetail?.isPublished ? "true" : "false", // assuming isPublished is boolean
+        content: blogDetail?.content || "",
+      });
+    }
+  }, [blogDetail]);
   const handleChange = (e) => {
     setBlogInfo({ ...blogInfo, [e.target.name]: e.target.value });
   };
   const handleUpdate = (e) => {
     e.preventDefault();
     putBlog(blogDetail?._id, blogInfo);
-    setOpen(false);}
+    // detailBlog(blogDetail._id)
+    setBlogInfo({
+      title: blogDetail?.title || "",
+      image: blogDetail?.image || "",
+      categoryId: blogDetail?.categoryId?._id || "",
+      isPublished: blogDetail?.isPublished?._id || "",
+      content: blogDetail?.content || "",
+    })
+    setOpen(false);
+  }
    
-    const handleClose = () => {
-      setBlogInfo({
-        title: blogDetail?.title || "",
-        image: blogDetail?.image || "",
-        categoryId: blogDetail?.categoryId?._id || "",
-        isPublished: blogDetail?.isPublished?._id || "",
-        content: blogDetail?.content || "",
-      });
-      setOpen(false);
-    };
+   
   ;
   return (
     <Transition show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => (setOpen(false), setBlogInfo({title: blogDetail?.title || "",
-        image: blogDetail?.image || "",
-        categoryId: blogDetail?.categoryId?._id || "",
-        isPublished: blogDetail?.isPublished?._id || "",
-        content: blogDetail?.content || ""}))}>
+      <Dialog as="div" className="relative z-10" onClose={() => (setOpen(false))}>
         <Transition
           as={Fragment}
           enter="ease-out duration-300"

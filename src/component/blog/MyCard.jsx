@@ -5,10 +5,9 @@ import { FiEye } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useBlogRequest from "../../services/useBlogRequest";
-import LikeCom from "./LikeCom";
 import { getLikeSuccess } from "../../features/blogSlice";
 
-const Card = ({
+const MyCard = ({
   _id,
   image,
   title,
@@ -16,14 +15,10 @@ const Card = ({
   createdAt,
   countOfVisitors,
   comments,
-  likes
-  
-  
+  likes,
 }) => {
-  const { likeBlogs, getLikeBlogs, getBlogs } = useBlogRequest();
-  const { blog, users, currentPage, like } = useSelector(
-    (state) => state.blogs
-  );
+  const { likeBlogs, getLikeBlogs, getBlogs,getBlogUser } = useBlogRequest();
+  const { blog, users, currentPage } = useSelector((state) => state.blogs);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -45,8 +40,7 @@ const Card = ({
   };
 
   useEffect(() => {
-    getBlogs(currentPage);
-    // getLikeBlogs()
+    getBlogUser(users[0]?._id);
   }, [isLiked]);
 
   const date = new Date(createdAt);
@@ -75,9 +69,9 @@ const Card = ({
         className="flex justify-center items-center gap-1"
         onClick={()=>handleLike(_id)}
       >
-        <RiHeartAdd2Line className={user && likes.includes(users[0]?._id) ? "text-red-500" : "text-black"} />
+         <RiHeartAdd2Line className={user && likes.includes(users[0]?._id) ? "text-red-500" : "text-black"} />
         {likes?.length}
-      </button>
+            </button>
             <div className="flex justify-center gap-1 items-center">
               <LiaCommentsSolid />
               {comments.length}
@@ -99,4 +93,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default MyCard;

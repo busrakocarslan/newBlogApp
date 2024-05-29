@@ -2,57 +2,47 @@ import React, { useEffect } from "react";
 import useBlogRequest from "../services/useBlogRequest";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../component/blog/Card";
-import { setPage } from "../features/blogSlice";
+import { setCurrentPage } from "../features/blogSlice";
+import { Grid, Pagination, Stack } from "@mui/material";
 
-const Dasboard = () => {
-  const { getBlogs,getUsers } = useBlogRequest();
+const Dashboard = () => {
+  const { getBlogs, getUsers,getBlogUser } = useBlogRequest();
   const dispatch = useDispatch();
-  const { blog, error, loading, currentPage, totalPage } = useSelector(
-    (state) => state.blogs
-  );
+  const { blog, currentPage, totalPage } = useSelector((state) => state.blogs);
 
   useEffect(() => {
-    getBlogs(currentPage,3);
-    getUsers()
-  }, [currentPage]);
-  const handleNextPage = () => {
-    if (currentPage < totalPage) {
-      dispatch(setPage(currentPage + 1));
-    }
-  };
+    getBlogs(currentPage);
+    // getBlogUser()
+    getUsers();
+    
+  }, [currentPage]); // Sayfa değişiminde blogları ve kullanıcıları tekrar getir
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      dispatch(setPage(currentPage - 1));
-    }
+  const handlePageChange = (event, value) => {
+    dispatch(setCurrentPage(value));
   };
 
   return (
-    <div className="flex justify-center flex-wrap gap-3 p-5">
-      {blog?.map((bg) => (
-        <Card key={bg._id} {...bg}></Card>
-      ))}
-      <div className="w-full flex justify-center mt-5">
-        <button
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className="mx-2 px-4 py-2 border rounded bg-gray-200"
-        >
-          Previous
-        </button>
-        <span>
-          {currentPage} / {totalPage}
-        </span>
-        <button
-          onClick={handleNextPage}
-          disabled={currentPage === totalPage}
-          className="mx-2 px-4 py-2 border rounded bg-gray-200"
-        >
-          Next
-        </button>
-      </div>
-    </div>
+    <>
+      <Grid container gap={2} mt={3} justifyContent={"center"}>
+        {blog?.map((blg) => (
+          <Grid item key={blg._id}>
+            <Card {...blg} currentPage={currentPage} />
+          </Grid>
+        ))}
+      </Grid>
+      <Stack spacing={2} mt={3}>
+        <Pagination
+          sx={{ display: "flex", justifyContent: "center" }}
+          count={totalPage}
+          page={currentPage}
+          onChange={handlePageChange}
+          variant="outlined"
+          
+        />
+      </Stack>
+      <div style={{ paddingBottom: '100px' }}></div>
+    </>
   );
 };
 
-export default Dasboard;
+export default Dashboard;

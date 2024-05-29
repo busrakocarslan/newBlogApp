@@ -12,9 +12,9 @@ const Navbar = () => {
 
   // Replace javascript:void(0) paths with your paths
   const navigation = [
-    { title: "Home", path: "/" },
-    { title: "NewBlog", path: "/newblog" },
-    { title: "About", path: "/about" },
+    { title: "Anasayfa", path: "/" },
+    { title: "YeniBlog", path: "/newblog" },
+    { title: "Iletişim", path: "/about" },
   ];
 
   useEffect(() => {
@@ -107,14 +107,14 @@ const Navbar = () => {
                     to="/login"
                     className="block text-gray-700 hover:text-gray-900"
                   >
-                    Log in
+                    Giriş
                   </Link>
                 ) : (
                   <div className=" flex max-md:flex-col max-md:justify-center max-md:items-end gap-3">
-                    <Link to="/profile">Profile</Link>
-                    <Link to="/myblogs">MyBlogs</Link>
+                    <Link to="/profile">Profil</Link>
+                    <Link to="/myblogs">Bloglarım</Link>
                     <button className=" text-red-900 hover:text-gray-900" color="inherit" onClick={logout}>
-                      Logout
+                      Çıkış
                       <FiLogOut className="inline ml-1" />
                     </button>
                   </div>
@@ -125,7 +125,7 @@ const Navbar = () => {
                   to="/register"
                   className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-medium bg-gray-800 hover:bg-gray-700 active:bg-gray-900 rounded-full md:inline-flex"
                 >
-                  Sign in
+                  Kayıt Ol
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"

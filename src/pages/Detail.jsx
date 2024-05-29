@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { RiHeartAdd2Line } from "react-icons/ri";
 import { LiaCommentsSolid } from "react-icons/lia";
 import { FiEye } from "react-icons/fi";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import DeleteModal from "../component/blog/DeleteModal";
 import UpdateModal from "../component/blog/UpdateModal";
 
 const Detail = () => {
+  const navigate=useNavigate()
   const [updateOpen, setUpdateOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   
@@ -66,9 +67,12 @@ const Detail = () => {
           </div>
         </div>
       </div>
-      <Link to="/" className="buttonbg hoverEffect">
+      <button onClick={()=>navigate(-1)}  className="buttonbg hoverEffect">
         Geri
-      </Link>
+      </button>
+      <button onClick={()=>navigate("/")}  className="buttonbg hoverEffect">
+        Anasayfa
+      </button>
       {users[0]?._id === blogDetail?.userId?._id && (
         <>
           <div className="flex justify-end mt-2 flex-col-1 gap-2">

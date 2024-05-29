@@ -190,7 +190,7 @@ const RegisterForm = ({
           )}
         </div>
 
-        <button type="submit" className="bg-[#781762] hoverEffect transition-all text-white py-2 px-4 rounded">Submit</button>
+        <button type="submit" className="bg-[#781762] hoverEffect transition-all text-white py-2 px-4 rounded">Gönder</button>
       </Form>
     </div>
   );

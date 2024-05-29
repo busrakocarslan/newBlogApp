@@ -9,7 +9,7 @@ const Register = () => {
 
   return (
     <div className="bg-login-bg min-w-[100%] min-h-[80vh] text-center bg-cover bg-center p-10 font-fontSedan">
-      <h1 className="text-2xl text-[#781762] font-extrabold">REGISTER</h1>
+      <h1 className="text-2xl text-[#781762] font-extrabold">Kayıt ol</h1>
       <div className="my-[5%] ">
         <Formik
           initialValues={{ username: "",

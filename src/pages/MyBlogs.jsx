@@ -2,26 +2,29 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useBlogRequest from "../services/useBlogRequest";
 import { useSelector } from "react-redux";
-import Card from "../component/blog/Card";
+import MyCard from "../component/blog/MyCard";
 
 const MyBlogs = () => {
   const { id } = useParams() 
-  const { blog,users } = useSelector((state) => state.blogs);
+  const { blog,users, } = useSelector((state) => state.blogs);
   const { getBlogUser,getUsers } = useBlogRequest();
 
   useEffect(() => {
-    getUsers()
-    if (users) {
-      getBlogUser(users[0]?._id);// find ya da some ile dönünce almadı
-    } 
+    getUsers();
   }, []);
 
+  useEffect(() => {
+    if (users.length > 0) {
+      getBlogUser(users[0]._id);
+    }
+  }, [users]);
+
   return <div className="flex justify-around items-center mt-2 flex-wrap"> {blog?.length > 0 ? (
-    blog.map((blg) => (
-      <Card key={blg._id} {...blg}/>     
+    blog?.map((blg) => (
+      <MyCard key={blg._id} {...blg}/>     
     ))
   ) : (
-    <p>No blogs found</p>
+    <p>Blogunuz bulunmamaktadır.</p>
   )}</div>;
 };
 

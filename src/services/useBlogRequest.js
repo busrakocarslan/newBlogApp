@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import useAxios from "./useAxios";
 import {
@@ -9,23 +8,27 @@ import {
   getUserSuccess,
   getCategoriesSuccess,
   postBlogSuccess,
-  getMyBlogSuccess
+  getMyBlogSuccess,
+  getLikeSuccess,
+  addCommentSuccess
 } from "../features/blogSlice";
-import { toastErrorNotify } from "../helper/ToastNotify";
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
+import { useNavigate } from "react-router-dom";
 
 const useBlogRequest = () => {
   const dispatch = useDispatch();
   const { axiosPublic, axiosToken } = useAxios();
+  const navigate = useNavigate();
 
   //!-----------Blogların çağırılması işlemi-----
-  const getBlogs = async (page, limit) => {
+  const getBlogs = async (page = 1) => {
     dispatch(blogPending());
     try {
-      const { data } = await axiosPublic(`blogs/?page=${page}&limit=${limit}`);
+      const { data } = await axiosPublic(`blogs?limit=10&page=${page}`);
       dispatch(getBlogSuccess(data));
       console.log(data);
     } catch (error) {
-      toastErrorNotify("Oops! there is something wrong for adding");
+      toastErrorNotify("Oops! Blogları getirirken bir hata oluştu");
       dispatch(blogRegister());
       console.log(error);
     }
@@ -37,7 +40,7 @@ const useBlogRequest = () => {
       dispatch(getCategoriesSuccess(data));
       console.log(data);
     } catch (error) {
-      toastErrorNotify("Oops! there is something wrong for adding");
+      toastErrorNotify("Oops! Kategorileri getirirken bir hata oluştu");
       dispatch(blogRegister());
       console.log(error);
     }
@@ -49,20 +52,30 @@ const useBlogRequest = () => {
     try {
       const { data } = await axiosToken(`/blogs/${id}`);
       dispatch(blogDetailSuccess(data));
+      // toastSuccessNotify("Blog içeriği başarıyla getirildi");
+
       console.log(data);
     } catch (error) {
+      toastErrorNotify("Oops! Blog ayrıntılarını getirirken bir hata oluştu");
       dispatch(blogRegister());
       console.log(error);
     }
   };
-  const createComments = async (commentData) => {
+  //!________________YORUM EKLEME______________
+  const createComments = async (commentData,id) => {
     dispatch(blogPending());
 
     try {
       const { data } = await axiosToken.post(`/comments/`, commentData);
-      dispatch(blogDetailSuccess(data));
+      toastSuccessNotify("Yorum başarıyla eklendi");
+      
+      dispatch(addCommentSuccess(data));
+      // detailBlog(id)
+
+      // dispatch(blogDetailSuccess(data));
       console.log(data);
     } catch (error) {
+      toastErrorNotify("Oops! Yorum eklerken bir hata oluştu");
       dispatch(blogRegister());
       console.log(error);
     }
@@ -72,37 +85,70 @@ const useBlogRequest = () => {
     dispatch(blogPending());
     try {
       const { data } = await axiosToken.post(`/blogs/`, commentData);
-      dispatch(postBlogSuccess(data));
-      detailBlog();
+      // dispatch(getBlogSuccess(data));
+      toastSuccessNotify("Blog başarıyla oluşturuldu");
+
+      console.log(data);
+    } catch (error) {
+      toastErrorNotify("Oops! Blog oluştururken bir hata oluştu");
+      dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+  //!-----------Blog like/unlike çağırma işlemi-----
+  const getLikeBlogs = async (id) => {
+    dispatch(blogPending());
+    try {
+      const { data } = await axiosToken(`/blogs/${id}/getLike`);
+      dispatch(getLikeSuccess(data));
+
       console.log(data);
     } catch (error) {
       dispatch(blogRegister());
       console.log(error);
     }
   };
-  //!-----------Blog bilgilerinin güncellenmesi işlemi-----
-  const putBlog = async (id,blogInfo) => {
+  //!-----------Blog like/unlike gönderme işlemi-----
+  const likeBlogs = async (id) => {
     dispatch(blogPending());
     try {
-    const {data}=  await axiosToken.put(`/blogs/${id}`,blogInfo);
-      dispatch(postBlogSuccess(data));
-      // getBlogs()
-     detailBlog(id)
-      // console.log(data);
+      const { data } = await axiosToken.post(`/blogs/${id}/postLike`, {});
+      dispatch(getLikeSuccess(data));
+      // getBlogs(1)
+      // getLikeBlogs(id)
+      // detailBlog();
+      console.log(data);
     } catch (error) {
       dispatch(blogRegister());
       console.log(error);
     }
   };
-//!-----------Blog bilgilerinin silinmesi işlemi-----
+
+  //!-----------Blog bilgilerinin güncellenmesi işlemi-----
+  const putBlog = async (id, blogInfo) => {
+    dispatch(blogPending());
+    try {
+      const { data } = await axiosToken.put(`/blogs/${id}`, blogInfo);
+      // dispatch(postBlogSuccess(data));
+      toastSuccessNotify("Blog başarıyla güncellendi");
+      detailBlog(id);
+      //  navigate("/myblogs")
+      // console.log(data);
+    } catch (error) {
+      toastErrorNotify("Oops! Blog güncellerken bir hata oluştu");
+      dispatch(blogRegister());
+      console.log(error);
+    }
+  };
+  //!-----------Blog bilgilerinin silinmesi işlemi-----
   const delBlogs = async (id) => {
     dispatch(blogPending());
     try {
       await axiosToken.delete(`/blogs/${id}`);
-      // toastSuccessNotify("Silme işlemi başarılı");
+      toastSuccessNotify("Blog başarıyla silindi");
     } catch (error) {
       dispatch(blogRegister());
-      // toastErrorNotify("Silme işlemi başarısız oldu");
+      toastErrorNotify("Oops! Blog silinirken bir hata oluştu");
       console.log(error);
     }
   };
@@ -139,7 +185,9 @@ const useBlogRequest = () => {
     getCategories,
     createBlogs,
     putBlog,
-    delBlogs
+    delBlogs,
+    likeBlogs,
+    getLikeBlogs,
   };
 };
 
